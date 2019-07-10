@@ -11,6 +11,15 @@ import {
   shortenAddress,
 } from './utils/formatting';
 
+const Wrapper = styled.div`
+  padding: 20px;
+`;
+
+const Title = styled.h2`
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+`;
+
 const Td = styled.td`
   text-align: center;
   font-family: 'Open Sans', sans-serif;
@@ -57,8 +66,10 @@ function History() {
   }, [bandicoin]);
 
   return (
-    <div>
-      <h2>History</h2>
+    <Wrapper>
+      <Title>
+        History
+      </Title>
       <table>
         <thead>
           <tr>
@@ -66,7 +77,7 @@ function History() {
               Tx
             </Th>
             <Th>
-              Success
+              Bandit success?
             </Th>
             <Th>
               From
@@ -101,9 +112,7 @@ function History() {
           ))}
         </tbody>
       </table>
-
-
-    </div>
+    </Wrapper>
   );
 }
 
