@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Web3Wrapper from './web3Wrapper';
 
 ReactDOM.render(
-  <App />,
+  <Web3Wrapper />,
   document.getElementById('root'),
 );
