@@ -18,11 +18,19 @@ const Title = styled.div`
 const Amount = styled.input`
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #333;
+  padding: 5px;
 `;
 
 const Recipient = styled.input`
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #333;
+  padding: 5px;
 `;
 
 const Button = styled.button`
