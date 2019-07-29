@@ -50,10 +50,12 @@ function History() {
           for (let i = 0; i < res.length; i += 1) {
             newEvents.push({
               key: res[i].transactionHash,
-              success: res[i].returnValues.success,
               from: res[i].returnValues.from,
               to: res[i].returnValues.to,
               amount: res[i].returnValues.amount.toString(),
+              bandit: res[i].returnValues.bandit,
+              victim: res[i].returnValues.victim,
+              stolenAmount: res[i].returnValues.stolenAmount.toString(),
             });
           }
 
@@ -74,19 +76,39 @@ function History() {
         <thead>
           <tr>
             <Th>
+              <span role="img" aria-label="Tx">🧾</span>
+              {' '}
               Tx
             </Th>
             <Th>
-              Bandit success?
+              <span role="img" aria-label="Tx">📤</span>
+              {' '}
+              Sender
             </Th>
             <Th>
-              From
+              <span role="img" aria-label="Tx">📥</span>
+              {' '}
+              Recipient
             </Th>
             <Th>
-              To
-            </Th>
-            <Th>
+              <span role="img" aria-label="Tx">💵</span>
+              {' '}
               Amount
+            </Th>
+            <Th>
+              <span role="img" aria-label="Tx">🦹‍</span>
+              {' '}
+              Bandit
+            </Th>
+            <Th>
+              <span role="img" aria-label="Tx">🤦🏽</span>
+              {' '}
+              Victim
+            </Th>
+            <Th>
+              <span role="img" aria-label="Tx">💰</span>
+              {' '}
+              Stolen amount
             </Th>
           </tr>
         </thead>
@@ -97,9 +119,6 @@ function History() {
                 {shortenAddress(event.key)}
               </Td>
               <Td>
-                {event.success ? '✔️' : '❌'}
-              </Td>
-              <Td>
                 {shortenAddress(event.from)}
               </Td>
               <Td>
@@ -107,6 +126,15 @@ function History() {
               </Td>
               <Td>
                 {web3.utils.fromWei(event.amount)}
+              </Td>
+              <Td>
+                {shortenAddress(event.bandit)}
+              </Td>
+              <Td>
+                {shortenAddress(event.victim)}
+              </Td>
+              <Td>
+                {web3.utils.fromWei(event.stolenAmount)}
               </Td>
             </tr>
           ))}
