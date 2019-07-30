@@ -95,7 +95,9 @@ function History() {
           {events.map(event => (
             <tr key={event.key}>
               <td>
-                {shortenAddress(event.key)}
+                <a href={`https://ropsten.etherscan.io/tx/${event.key}`}>
+                  {shortenAddress(event.key)}
+                </a>
               </td>
               <td>
                 {shortenAddress(event.from)}

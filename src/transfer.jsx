@@ -50,7 +50,7 @@ function Transfer() {
     address,
   } = useContext(Web3Context);
 
-  const [amountToTransfer, setAmountToTransfer] = useState();
+  const [amountToTransfer, setAmountToTransfer] = useState('');
   const [recipient, setRecipient] = useState('');
 
   function transfer() {
