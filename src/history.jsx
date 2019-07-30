@@ -17,18 +17,20 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
+  font-weight: 700;
 `;
 
-const Td = styled.td`
-  text-align: center;
+const Table = styled.table`
   font-family: 'Open Sans', sans-serif;
+  text-align: center;
 `;
 
 const Th = styled.td`
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
   font-weight: 800;
+`;
+
+const Amount = styled.span`
+  color: ${props => (props.sub ? '#e74c3c' : '#2ecc71')};
 `;
 
 function History() {
@@ -72,74 +74,72 @@ function History() {
       <Title>
         History
       </Title>
-      <table>
+      <Table>
         <thead>
           <tr>
             <Th>
-              <span role="img" aria-label="Tx">🧾</span>
-              {' '}
               Tx
             </Th>
             <Th>
-              <span role="img" aria-label="Tx">📤</span>
-              {' '}
               Sender
             </Th>
             <Th>
-              <span role="img" aria-label="Tx">📥</span>
-              {' '}
               Recipient
             </Th>
             <Th>
-              <span role="img" aria-label="Tx">💵</span>
-              {' '}
-              Amount
-            </Th>
-            <Th>
-              <span role="img" aria-label="Tx">🦹‍</span>
-              {' '}
-              Bandit
-            </Th>
-            <Th>
-              <span role="img" aria-label="Tx">🤦🏽</span>
-              {' '}
-              Victim
-            </Th>
-            <Th>
-              <span role="img" aria-label="Tx">💰</span>
-              {' '}
-              Stolen amount
+              Bandit / Victim
             </Th>
           </tr>
         </thead>
         <tbody>
           {events.map(event => (
             <tr key={event.key}>
-              <Td>
+              <td>
                 {shortenAddress(event.key)}
-              </Td>
-              <Td>
+              </td>
+              <td>
                 {shortenAddress(event.from)}
-              </Td>
-              <Td>
+                <br />
+                <Amount sub>
+                  {'- '}
+                  {web3.utils.fromWei(event.amount)}
+                </Amount>
+              </td>
+              <td>
                 {shortenAddress(event.to)}
-              </Td>
-              <Td>
-                {web3.utils.fromWei(event.amount)}
-              </Td>
-              <Td>
-                {shortenAddress(event.bandit)}
-              </Td>
-              <Td>
-                {shortenAddress(event.victim)}
-              </Td>
-              <Td>
-                {web3.utils.fromWei(event.stolenAmount)}
-              </Td>
+                <br />
+                <Amount>
+                  {'+ '}
+                  {event.bandit === event.from ? (
+                    parseInt(web3.utils.fromWei(event.amount), 10) + parseInt(web3.utils.fromWei(event.stolenAmount), 10)
+                  ) : (
+                    parseInt(web3.utils.fromWei(event.amount), 10) / 2
+                  )}
+                </Amount>
+              </td>
+              <td>
+                {event.bandit === event.from ? (
+                  shortenAddress(event.victim)
+                ) : (
+                  shortenAddress(event.bandit)
+                )}
+                <br />
+                {event.bandit === event.from ? (
+                  <Amount sub>
+                    {'- '}
+                    {web3.utils.fromWei(event.stolenAmount)}
+                  </Amount>
+                ) : (
+                  <Amount>
+                    {'+ '}
+                    {parseInt(web3.utils.fromWei(event.amount), 10) / 2}
+                  </Amount>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </Wrapper>
   );
 }

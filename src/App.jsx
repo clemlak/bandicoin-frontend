@@ -36,14 +36,14 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       <Title>
         {`Hello ${address ? shortenAddress(address) : '...'}`}
       </Title>
       <Balance />
       <Transfer />
       <History />
-    </div>
+    </>
   );
 }
 
